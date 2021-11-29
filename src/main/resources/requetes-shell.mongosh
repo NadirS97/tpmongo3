@@ -1,0 +1,56 @@
+# 1. Donnez la liste des films où DiCaprio est l'un des acteurs
+
+# 2 solutions :
+
+var diCaprio = db.artists.find({last_name:"DiCaprio"})
+# resultat liste, donc
+db.movies.find({"actors._id":diCaprio[0]._id},{title:1})
+
+
+# resultat 1 document :
+var diCaprio = db.artists.findOne({last_name:"DiCaprio"})
+db.movies.find({"actors._id":diCaprio._id},{title:1})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 2. Donnez la liste des réalisateurs qui ont réalisé au moins un film de SF
+var listeSF = db.movies.find({genre:"Science-fiction"},{director:1});
+var list = new Array();
+listeSF.forEach( function(doc) {
+  var dir = db.artists.findOne({"_id":doc.director._id});
+  if(list.indexOf(dir.last_name)==-1)
+        list.push(dir.last_name);
+  }
+);
+list
+
+
+
+
+
+
+
+
+
+
+# 3. Donnez la liste des réalisateurs/acteurs
